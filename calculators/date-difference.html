@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference Calculator - All-in-One Calculator Suite</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-cyan-100 min-h-screen flex flex-col">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                </a>
+                <h1 class="text-2xl font-bold text-blue-600">
+                    <i class="fas fa-calendar-alt mr-2"></i>Date Difference Calculator
+                </h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        
+        <div class="calc-container">
+            
+            <!-- Calculator Form -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Calculate Date Difference</h2>
+                
+                <!-- Error Container -->
+                <div id="error-container" class="hidden mb-4"></div>
+                
+                <!-- From Date -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-calendar-day mr-2 text-blue-500"></i>From Date
+                    </label>
+                    <input type="date" id="fromDate" class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-300 text-lg shadow-sm hover:border-blue-400">
+                </div>
+
+                <!-- To Date -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-calendar-check mr-2 text-blue-500"></i>To Date
+                    </label>
+                    <input type="date" id="toDate" class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all duration-300 text-lg shadow-sm hover:border-blue-400">
+                </div>
+
+                <!-- Quick Options -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-clock mr-2 text-blue-500"></i>Quick Options
+                    </label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <button onclick="setQuickDate(1)" class="bg-gradient-to-r from-blue-100 to-cyan-100 hover:from-blue-200 hover:to-cyan-200 py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md border border-blue-300 hover:border-blue-400">
+                            Today to Tomorrow
+                        </button>
+                        <button onclick="setQuickDate(7)" class="bg-gradient-to-r from-blue-100 to-cyan-100 hover:from-blue-200 hover:to-cyan-200 py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md border border-blue-300 hover:border-blue-400">
+                            Next 7 Days
+                        </button>
+                        <button onclick="setQuickDate(30)" class="bg-gradient-to-r from-blue-100 to-cyan-100 hover:from-blue-200 hover:to-cyan-200 py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md border border-blue-300 hover:border-blue-400">
+                            Next 30 Days
+                        </button>
+                        <button onclick="setQuickDate(365)" class="bg-gradient-to-r from-blue-100 to-cyan-100 hover:from-blue-200 hover:to-cyan-200 py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md border border-blue-300 hover:border-blue-400">
+                            Next 1 Year
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Include Options -->
+                <div class="mb-6">
+                    <label class="flex items-center cursor-pointer bg-blue-50 px-5 py-4 rounded-xl border-2 border-blue-200 hover:border-blue-300 transition-all duration-300">
+                        <input type="checkbox" id="excludeEndDate" class="mr-3 w-5 h-5 text-blue-500 focus:ring-blue-500 rounded">
+                        <span class="text-gray-700 font-semibold">Exclude End Date from calculation</span>
+                    </label>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-4 flex-wrap">
+                    <button onclick="calculateDateDifference()" class="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg">
+                        <i class="fas fa-calculator mr-2"></i>Calculate Difference
+                    </button>
+                    <button onclick="resetForm()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg border-2 border-gray-300 hover:border-gray-400">
+                        <i class="fas fa-redo mr-2"></i>Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Section -->
+            <div id="result" class="hidden">
+                <div class="result-box">
+                    <h3 class="text-2xl font-bold mb-6 text-center">
+                        <i class="fas fa-chart-bar mr-2"></i>Date Difference Result
+                    </h3>
+                    
+                    <!-- Main Difference Display -->
+                    <div class="bg-white bg-opacity-20 p-6 rounded-lg mb-4">
+                        <div id="mainDifference" class="text-center text-2xl md:text-3xl font-bold"></div>
+                    </div>
+
+                    <!-- Detailed Breakdown -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                        <div class="result-item text-center">
+                            <div class="text-3xl font-bold" id="years">0</div>
+                            <div class="text-sm mt-1">Years</div>
+                        </div>
+                        <div class="result-item text-center">
+                            <div class="text-3xl font-bold" id="months">0</div>
+                            <div class="text-sm mt-1">Months</div>
+                        </div>
+                        <div class="result-item text-center">
+                            <div class="text-3xl font-bold" id="days">0</div>
+                            <div class="text-sm mt-1">Days</div>
+                        </div>
+                    </div>
+
+                    <!-- Alternative Representations -->
+                    <div class="space-y-3">
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <strong><i class="fas fa-calendar mr-2"></i>Total Days:</strong> <span id="totalDays">0</span> days
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <strong><i class="fas fa-calendar-week mr-2"></i>Total Weeks:</strong> <span id="totalWeeks">0</span> weeks
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <strong><i class="fas fa-calendar-alt mr-2"></i>Total Months:</strong> <span id="totalMonths">0</span> months (approx)
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <strong><i class="fas fa-hourglass-half mr-2"></i>Total Hours:</strong> <span id="totalHours">0</span> hours
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <strong><i class="fas fa-clock mr-2"></i>Total Minutes:</strong> <span id="totalMinutes">0</span> minutes
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <strong><i class="fas fa-stopwatch mr-2"></i>Total Seconds:</strong> <span id="totalSeconds">0</span> seconds
+                        </div>
+                    </div>
+
+                    <!-- Date Info -->
+                    <div class="mt-4 bg-white bg-opacity-20 p-4 rounded-lg">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <strong>From Date:</strong><br>
+                                <span id="fromDateDisplay"></span>
+                            </div>
+                            <div>
+                                <strong>To Date:</strong><br>
+                                <span id="toDateDisplay"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-6 shadow-md mt-auto">
+        <div class="container mx-auto px-4 text-center text-gray-600">
+            <p>&copy; 2026 All-in-One Calculator Suite</p>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/date-difference.js"></script>
+
+</body>
+</html>

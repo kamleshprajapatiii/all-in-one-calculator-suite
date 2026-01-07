@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator - All-in-One Calculator Suite</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-pink-100 min-h-screen flex flex-col">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                </a>
+                <h1 class="text-2xl font-bold text-purple-600">
+                    <i class="fas fa-birthday-cake mr-2"></i>Age Calculator
+                </h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        
+        <div class="calc-container">
+            
+            <!-- Calculator Form -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Calculate Your Age</h2>
+                
+                <!-- Error Container -->
+                <div id="error-container" class="hidden mb-4"></div>
+                
+                <!-- Date of Birth -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-calendar mr-2 text-purple-500"></i>Date of Birth
+                    </label>
+                    <input type="date" id="dob" class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-purple-300 focus:border-purple-500 transition-all duration-300 text-lg shadow-sm hover:border-purple-400" max="">
+                </div>
+
+                <!-- Current Date (Optional) -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-calendar-check mr-2 text-purple-500"></i>Calculate Age As On (Optional)
+                    </label>
+                    <input type="date" id="currentDate" class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-purple-300 focus:border-purple-500 transition-all duration-300 text-lg shadow-sm hover:border-purple-400">
+                    <p class="text-sm text-gray-500 mt-2 ml-1"><i class="fas fa-info-circle mr-1"></i>Leave empty to use today's date</p>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-4 flex-wrap">
+                    <button onclick="calculateAge()" class="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg">
+                        <i class="fas fa-calculator mr-2"></i>Calculate Age
+                    </button>
+                    <button onclick="resetForm()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg border-2 border-gray-300 hover:border-gray-400">
+                        <i class="fas fa-redo mr-2"></i>Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Section -->
+            <div id="result" class="hidden">
+                <div class="result-box">
+                    <h3 class="text-2xl font-bold mb-6 text-center">
+                        <i class="fas fa-info-circle mr-2"></i>Your Age
+                    </h3>
+                    
+                    <!-- Main Age Display -->
+                    <div class="bg-white bg-opacity-20 p-6 rounded-lg mb-4">
+                        <div id="mainAge" class="text-center text-3xl font-bold"></div>
+                    </div>
+
+                    <!-- Detailed Breakdown -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div class="result-item text-center">
+                            <div class="text-3xl font-bold" id="years">0</div>
+                            <div class="text-sm mt-1">Years</div>
+                        </div>
+                        <div class="result-item text-center">
+                            <div class="text-3xl font-bold" id="months">0</div>
+                            <div class="text-sm mt-1">Months</div>
+                        </div>
+                        <div class="result-item text-center">
+                            <div class="text-3xl font-bold" id="days">0</div>
+                            <div class="text-sm mt-1">Days</div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Info -->
+                    <div class="mt-4 space-y-2">
+                        <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                            <strong>Total Months:</strong> <span id="totalMonths">0</span> months
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                            <strong>Total Weeks:</strong> <span id="totalWeeks">0</span> weeks
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                            <strong>Total Days:</strong> <span id="totalDays">0</span> days
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                            <strong>Total Hours:</strong> <span id="totalHours">0</span> hours
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                            <strong>Total Minutes:</strong> <span id="totalMinutes">0</span> minutes
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                            <strong>Next Birthday:</strong> <span id="nextBirthday">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-6 shadow-md mt-auto">
+        <div class="container mx-auto px-4 text-center text-gray-600">
+            <p>&copy; 2026 All-in-One Calculator Suite</p>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/age-calculator.js"></script>
+
+</body>
+</html>

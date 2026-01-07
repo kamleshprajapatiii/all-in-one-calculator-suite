@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator - All-in-One Calculator Suite</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Chart.js for EMI Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-orange-50 to-red-100 min-h-screen flex flex-col">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                </a>
+                <h1 class="text-2xl font-bold text-orange-600">
+                    <i class="fas fa-rupee-sign mr-2"></i>EMI Calculator
+                </h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        
+        <div class="calc-container">
+            
+            <!-- Calculator Form -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Calculate Your Loan EMI</h2>
+                
+                <!-- Error Container -->
+                <div id="error-container" class="hidden mb-4"></div>
+                
+                <!-- Loan Amount -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-money-bill-wave mr-2 text-orange-500"></i>Loan Amount (₹)
+                    </label>
+                    <input type="number" id="loanAmount" class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-orange-300 focus:border-orange-500 transition-all duration-300 text-lg shadow-sm hover:border-orange-400 font-semibold" placeholder="Enter loan amount" min="1000" step="1000" value="500000">
+                    <input type="range" id="loanAmountRange" class="w-full mt-3 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-500" min="10000" max="10000000" step="10000" value="500000">
+                    <div class="flex justify-between text-sm text-gray-600 mt-2 font-medium">
+                        <span>₹10,000</span>
+                        <span>₹1 Crore</span>
+                    </div>
+                </div>
+
+                <!-- Interest Rate -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-percentage mr-2 text-orange-500"></i>Interest Rate (% per annum)
+                    </label>
+                    <input type="number" id="interestRate" class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-orange-300 focus:border-orange-500 transition-all duration-300 text-lg shadow-sm hover:border-orange-400 font-semibold" placeholder="Enter interest rate" min="0.1" step="0.1" value="8.5">
+                    <input type="range" id="interestRateRange" class="w-full mt-3 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-500" min="1" max="30" step="0.1" value="8.5">
+                    <div class="flex justify-between text-sm text-gray-600 mt-2 font-medium">
+                        <span>1%</span>
+                        <span>30%</span>
+                    </div>
+                </div>
+
+                <!-- Loan Tenure -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-calendar-alt mr-2 text-orange-500"></i>Loan Tenure
+                    </label>
+                    <div class="flex gap-3 mb-3">
+                        <input type="number" id="loanTenure" class="flex-1 px-5 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-orange-300 focus:border-orange-500 transition-all duration-300 text-lg shadow-sm hover:border-orange-400 font-semibold" placeholder="Enter tenure" min="1" value="10">
+                        <select id="tenureType" class="px-6 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-orange-300 focus:border-orange-500 transition-all duration-300 text-lg font-bold shadow-sm hover:border-orange-400 bg-white">
+                            <option value="years">Years</option>
+                            <option value="months">Months</option>
+                        </select>
+                    </div>
+                    <input type="range" id="loanTenureRange" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-500" min="1" max="30" step="1" value="10">
+                    <div class="flex justify-between text-sm text-gray-600 mt-2 font-medium">
+                        <span>1 Year</span>
+                        <span>30 Years</span>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-4 flex-wrap">
+                    <button onclick="calculateEMI()" class="flex-1 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg">
+                        <i class="fas fa-calculator mr-2"></i>Calculate EMI
+                    </button>
+                    <button onclick="resetForm()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg border-2 border-gray-300 hover:border-gray-400">
+                        <i class="fas fa-redo mr-2"></i>Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Section -->
+            <div id="result" class="hidden">
+                <div class="result-box">
+                    <h3 class="text-2xl font-bold mb-6 text-center">
+                        <i class="fas fa-receipt mr-2"></i>Your EMI Details
+                    </h3>
+                    
+                    <!-- Monthly EMI -->
+                    <div class="bg-white bg-opacity-20 p-6 rounded-lg mb-4 text-center">
+                        <div class="text-sm mb-2">Monthly EMI</div>
+                        <div class="text-4xl md:text-5xl font-bold" id="monthlyEMI">₹0</div>
+                    </div>
+
+                    <!-- Breakdown -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                        <div class="result-item text-center">
+                            <div class="text-2xl font-bold" id="principalAmount">₹0</div>
+                            <div class="text-sm mt-1">Principal Amount</div>
+                        </div>
+                        <div class="result-item text-center">
+                            <div class="text-2xl font-bold" id="totalInterest">₹0</div>
+                            <div class="text-sm mt-1">Total Interest</div>
+                        </div>
+                        <div class="result-item text-center">
+                            <div class="text-2xl font-bold" id="totalAmount">₹0</div>
+                            <div class="text-sm mt-1">Total Amount</div>
+                        </div>
+                    </div>
+
+                    <!-- Chart -->
+                    <div class="bg-white bg-opacity-20 p-4 rounded-lg mb-4">
+                        <canvas id="emiChart"></canvas>
+                    </div>
+
+                    <!-- Additional Info -->
+                    <div class="space-y-3">
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <strong><i class="fas fa-calendar-check mr-2"></i>Loan Period:</strong> <span id="loanPeriod">-</span>
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <strong><i class="fas fa-chart-line mr-2"></i>Interest Rate:</strong> <span id="displayRate">-</span>% per annum
+                        </div>
+                    </div>
+
+                    <!-- Payment Schedule Button -->
+                    <div class="mt-4">
+                        <button onclick="togglePaymentSchedule()" class="w-full bg-white bg-opacity-20 hover:bg-opacity-30 py-3 px-4 rounded-lg transition-colors">
+                            <i class="fas fa-table mr-2"></i>View Payment Schedule
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Payment Schedule Table -->
+                <div id="paymentSchedule" class="hidden mt-6 bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-list mr-2"></i>Payment Schedule
+                    </h3>
+                    <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-100 sticky top-0">
+                                <tr>
+                                    <th class="p-2 text-left">Month</th>
+                                    <th class="p-2 text-right">EMI</th>
+                                    <th class="p-2 text-right">Principal</th>
+                                    <th class="p-2 text-right">Interest</th>
+                                    <th class="p-2 text-right">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduleTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-6 shadow-md mt-auto">
+        <div class="container mx-auto px-4 text-center text-gray-600">
+            <p>&copy; 2026 All-in-One Calculator Suite</p>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/emi-calculator.js"></script>
+
+</body>
+</html>

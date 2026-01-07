@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All-in-One Calculator Suite</title>
+    
+    <!-- Tailwind CSS CDN (Latest) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jQuery CDN (Latest) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex flex-col">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-center text-indigo-600">
+                <i class="fas fa-calculator mr-2"></i>
+                All-in-One Calculator Suite
+            </h1>
+            <p class="text-center text-gray-600 mt-2">Your Complete Calculator Solution</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        
+        <!-- Calculator Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Age Calculator Card -->
+            <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-6 text-white">
+                    <i class="fas fa-birthday-cake text-4xl mb-3"></i>
+                    <h2 class="text-xl font-bold">Age Calculator</h2>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">Calculate your exact age in years, months, and days</p>
+                    <a href="calculators/age-calculator.html" class="block w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg text-center transition-colors">
+                        Open Calculator
+                    </a>
+                </div>
+            </div>
+
+            <!-- BMI Calculator Card -->
+            <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                <div class="bg-gradient-to-r from-green-500 to-teal-500 p-6 text-white">
+                    <i class="fas fa-heartbeat text-4xl mb-3"></i>
+                    <h2 class="text-xl font-bold">BMI Calculator</h2>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">Check your Body Mass Index and fitness level</p>
+                    <a href="calculators/bmi-calculator.html" class="block w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg text-center transition-colors">
+                        Open Calculator
+                    </a>
+                </div>
+            </div>
+
+            <!-- Date Difference Calculator Card -->
+            <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-500 to-cyan-500 p-6 text-white">
+                    <i class="fas fa-calendar-alt text-4xl mb-3"></i>
+                    <h2 class="text-xl font-bold">Date Difference</h2>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">Calculate difference between two dates</p>
+                    <a href="calculators/date-difference.html" class="block w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg text-center transition-colors">
+                        Open Calculator
+                    </a>
+                </div>
+            </div>
+
+            <!-- EMI Calculator Card -->
+            <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                <div class="bg-gradient-to-r from-orange-500 to-red-500 p-6 text-white">
+                    <i class="fas fa-rupee-sign text-4xl mb-3"></i>
+                    <h2 class="text-xl font-bold">EMI Calculator</h2>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">Calculate your loan EMI and payment schedule</p>
+                    <a href="calculators/emi-calculator.html" class="block w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg text-center transition-colors">
+                        Open Calculator
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-6 shadow-md mt-auto">
+        <div class="container mx-auto px-4 text-center text-gray-600">
+            <p>&copy; 2026 All-in-One Calculator Suite. Made with <i class="fas fa-heart text-red-500"></i></p>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>

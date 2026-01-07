@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - All-in-One Calculator Suite</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-green-50 to-teal-100 min-h-screen flex flex-col">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                </a>
+                <h1 class="text-2xl font-bold text-green-600">
+                    <i class="fas fa-heartbeat mr-2"></i>BMI Calculator
+                </h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        
+        <div class="calc-container">
+            
+            <!-- Calculator Form -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Calculate Your BMI</h2>
+                
+                <!-- Error Container -->
+                <div id="error-container" class="hidden mb-4"></div>
+                
+                <!-- Gender Selection -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-user mr-2 text-green-500"></i>Gender
+                    </label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center cursor-pointer bg-white px-6 py-3 rounded-xl border-2 border-gray-300 hover:border-green-400 transition-all duration-300 shadow-sm hover:shadow-md">
+                            <input type="radio" name="gender" value="male" checked class="mr-3 w-5 h-5 text-green-500 focus:ring-green-500">
+                            <span class="text-gray-700 font-semibold">Male</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer bg-white px-6 py-3 rounded-xl border-2 border-gray-300 hover:border-green-400 transition-all duration-300 shadow-sm hover:shadow-md">
+                            <input type="radio" name="gender" value="female" class="mr-3 w-5 h-5 text-green-500 focus:ring-green-500">
+                            <span class="text-gray-700 font-semibold">Female</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Age -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-calendar mr-2 text-green-500"></i>Age (years)
+                    </label>
+                    <input type="number" id="age" class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-300 focus:border-green-500 transition-all duration-300 text-lg shadow-sm hover:border-green-400" placeholder="Enter your age" min="1" max="120">
+                </div>
+
+                <!-- Weight -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-weight mr-2 text-green-500"></i>Weight
+                    </label>
+                    <div class="flex gap-3">
+                        <input type="number" id="weight" class="flex-1 px-5 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-300 focus:border-green-500 transition-all duration-300 text-lg shadow-sm hover:border-green-400" placeholder="Enter weight" step="0.1" min="1">
+                        <select id="weightUnit" class="px-6 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-300 focus:border-green-500 transition-all duration-300 text-lg font-semibold shadow-sm hover:border-green-400 bg-white">
+                            <option value="kg">kg</option>
+                            <option value="lbs">lbs</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Height -->
+                <div class="mb-6">
+                    <label class="block text-gray-800 font-bold mb-3 text-lg">
+                        <i class="fas fa-ruler-vertical mr-2 text-green-500"></i>Height
+                    </label>
+                    <div class="flex gap-3">
+                        <input type="number" id="height" class="flex-1 px-5 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-300 focus:border-green-500 transition-all duration-300 text-lg shadow-sm hover:border-green-400" placeholder="Enter height" step="0.1" min="1">
+                        <select id="heightUnit" class="px-6 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-300 focus:border-green-500 transition-all duration-300 text-lg font-semibold shadow-sm hover:border-green-400 bg-white">
+                            <option value="cm">cm</option>
+                            <option value="m">m</option>
+                            <option value="ft">ft</option>
+                            <option value="in">in</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-4 flex-wrap">
+                    <button onclick="calculateBMI()" class="flex-1 bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg">
+                        <i class="fas fa-calculator mr-2"></i>Calculate BMI
+                    </button>
+                    <button onclick="resetForm()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg border-2 border-gray-300 hover:border-gray-400">
+                        <i class="fas fa-redo mr-2"></i>Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Section -->
+            <div id="result" class="hidden">
+                <div class="result-box">
+                    <h3 class="text-2xl font-bold mb-6 text-center">
+                        <i class="fas fa-chart-line mr-2"></i>Your BMI Result
+                    </h3>
+                    
+                    <!-- BMI Value -->
+                    <div class="bg-white bg-opacity-20 p-6 rounded-lg mb-4 text-center">
+                        <div class="text-5xl font-bold mb-2" id="bmiValue">0</div>
+                        <div class="text-xl" id="bmiCategory">-</div>
+                    </div>
+
+                    <!-- BMI Status Bar -->
+                    <div class="mb-6">
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <div class="flex justify-between mb-2 text-sm">
+                                <span>Underweight</span>
+                                <span>Normal</span>
+                                <span>Overweight</span>
+                                <span>Obese</span>
+                            </div>
+                            <div class="relative h-4 bg-white bg-opacity-30 rounded-full overflow-hidden">
+                                <div class="absolute h-full w-1/4 bg-blue-400"></div>
+                                <div class="absolute h-full w-1/4 bg-green-400" style="left: 25%;"></div>
+                                <div class="absolute h-full w-1/4 bg-yellow-400" style="left: 50%;"></div>
+                                <div class="absolute h-full w-1/4 bg-red-400" style="left: 75%;"></div>
+                                <div id="bmiIndicator" class="absolute h-6 w-1 bg-white -mt-1 transition-all duration-500" style="left: 50%;"></div>
+                            </div>
+                            <div class="flex justify-between mt-1 text-xs">
+                                <span>18.5</span>
+                                <span>25</span>
+                                <span>30</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Info -->
+                    <div class="space-y-3">
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <strong>Healthy BMI Range:</strong> 18.5 - 24.9
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <strong>Ideal Weight Range:</strong> <span id="idealWeight">-</span>
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg" id="recommendations">
+                            <strong>Recommendation:</strong> <span id="recommendationText">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BMI Chart Reference -->
+            <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">BMI Categories</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-blue-400 rounded mr-3"></div>
+                        <span><strong>Underweight:</strong> BMI less than 18.5</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-green-400 rounded mr-3"></div>
+                        <span><strong>Normal weight:</strong> BMI 18.5 - 24.9</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-yellow-400 rounded mr-3"></div>
+                        <span><strong>Overweight:</strong> BMI 25 - 29.9</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-red-400 rounded mr-3"></div>
+                        <span><strong>Obese:</strong> BMI 30 or greater</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-6 shadow-md mt-auto">
+        <div class="container mx-auto px-4 text-center text-gray-600">
+            <p>&copy; 2026 All-in-One Calculator Suite</p>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/bmi-calculator.js"></script>
+
+</body>
+</html>
